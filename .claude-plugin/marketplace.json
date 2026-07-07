@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "ai-platform",
+  "owner": "AI Platform / Center of Excellence team",
+  "plugins": [
+    {
+      "name": "ai-platform",
+      "source": ".",
+      "description": "Shared agents, skills, commands, rules, and hooks for every repo on the Internal AI Agent Platform.",
+      "version": "1.0.0"
+    }
+  ]
+}

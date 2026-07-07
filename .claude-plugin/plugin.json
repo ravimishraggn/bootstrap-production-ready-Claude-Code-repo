@@ -1,0 +1,9 @@
+{
+  "name": "ai-platform",
+  "version": "1.0.0",
+  "description": "Enterprise-shared Claude Code framework for the Internal AI Agent Platform: agents, skills, commands, rules, and hooks used by every business-agent repo.",
+  "author": "AI Platform / Center of Excellence team",
+  "homepage": "https://github.com/your-org/ai-platform-framework",
+  "license": "UNLICENSED",
+  "keywords": ["agents", "sales", "revops", "marketing", "enterprise-framework"]
+}

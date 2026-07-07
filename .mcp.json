@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config.json",
+  "_comment": "MCP servers available to Claude Code in this repo. Secrets are read from the shell environment (never hardcoded) via ${VAR} expansion. See docs/ai-native-sdlc.md for which servers are used at which SDLC stage.",
+
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "_use": "PR creation/review, issue linking, CI status checks"
+    },
+    "jira": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-jira"],
+      "env": {
+        "JIRA_BASE_URL": "${JIRA_BASE_URL}",
+        "JIRA_EMAIL": "${JIRA_EMAIL}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
+      },
+      "_use": "Requirement traceability: reading tickets, updating status, linking PRs"
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "${DATABASE_URL_READONLY}"],
+      "_use": "Schema inspection and read-only querying for agent data models. Never point at a writable production connection string."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"],
+      "_use": "E2E testing of agent UIs and the internal console; used by test-engineer agent and /test"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "_use": "Sandboxed filesystem access scoped to the repo root"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "_use": "Up-to-date library/framework documentation lookup to avoid stale API usage in generated code"
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      },
+      "_use": "Human-in-the-loop approvals and notifications for agent actions (see rules/human-in-the-loop.md)"
+    },
+    "openapi": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-openapi", "--spec", "./docs/openapi"],
+      "_use": "Grounding API-consuming agents (CRM, billing, marketing automation) in the real contract instead of hallucinated endpoints"
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "_use": "Ad-hoc web research and verification for RFP Response and ROI Calculator agents (e.g. pulling public pricing pages)"
+    }
+  }
+}
